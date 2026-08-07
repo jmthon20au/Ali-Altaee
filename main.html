@@ -1,0 +1,1834 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth dark">
+
+<head>
+    <link rel="icon" type="image/png" href="logo.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> علي الطائي | مصمم ومبرمج مواقع إلكترونية</title>
+    <link rel="icon" type="image/png" href="logo.ico">
+    <meta property="og::title" content="Ali Altaee">
+    <meta property="og:image" content="logo.ico">
+    <meta property="og: url" content="www.ali-altaee.free.nf">
+    <meta property="og: type" content="website">
+    <!-- Google Fonts: Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            purple: '#7C3AED',
+                            indigo: '#4F46E5',
+                            blue: '#3B82F6',
+                            dark: '#030712',
+                            card: 'rgba(17, 24, 39, 0.6)',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'marquee': 'marquee 25s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0px) rotate(0deg)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-15px) rotate(3deg)'
+                            },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': {
+                                opacity: '0.4',
+                                filter: 'drop-shadow(0 0 15px rgba(124, 58, 237, 0.5))'
+                            },
+                            '50%': {
+                                opacity: '0.8',
+                                filter: 'drop-shadow(0 0 30px rgba(59, 130, 246, 0.8))'
+                            },
+                        },
+                        marquee: {
+                            '0%': {
+                                transform: 'translateX(0%)'
+                            },
+                            '100%': {
+                                transform: 'translateX(50%)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        * {
+            font-family: 'Cairo', sans-serif;
+            user-select: none;
+        }
+        
+        body {
+            background-color: #030712;
+            color: #F9FAFB;
+            overflow-x: hidden;
+        }
+        /* Ambient glowing background grid */
+        
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        /* Glassmorphism Cards */
+        
+        .glass-card {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .glass-card:hover {
+            border-color: rgba(124, 58, 237, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.3);
+        }
+        
+        .glass-nav {
+            background: rgba(3, 7, 18, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        /* Text Gradients */
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #A78BFA 0%, #818CF8 50%, #60A5FA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .gradient-text-orange {
+            background: linear-gradient(135deg, #F97316 0%, #FBBF24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Glowing Buttons */
+        
+        .btn-glow {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #7C3AED, #4F46E5, #3B82F6, #7C3AED);
+            border-radius: 9999px;
+            z-index: -1;
+            filter: blur(10px);
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .btn-glow:hover::before {
+            opacity: 1;
+            filter: blur(16px);
+        }
+        /* Interactive Cursor Lighting */
+        
+        #cursor-blur {
+            pointer-events: none;
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, rgba(59, 130, 246, 0.08) 40%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+            z-index: 0;
+        }
+        /* Custom Scrollbar */
+        
+         ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+         ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        
+         ::-webkit-scrollbar-thumb {
+            background: #1F2937;
+            border-radius: 4px;
+        }
+        
+         ::-webkit-scrollbar-thumb:hover {
+            background: #4C1D95;
+        }
+        /* Laptop Mockup 3D Perspective */
+        
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        
+        .laptop-screen {
+            transform: rotateX(10deg) rotateY(-8deg) rotateZ(2deg);
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        
+        .perspective-1000:hover .laptop-screen {
+            transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+        }
+    </style>
+</head>
+
+<body class="relative bg-brand-dark text-slate-100 font-cairo antialiased selection:bg-purple-600 selection:text-white">
+
+    <!-- Interactive Mouse Follower Glow -->
+    <div id="cursor-blur"></div>
+
+    <!-- Animated Ambient Radial Gradients -->
+    <div class="fixed inset-0 bg-grid-pattern pointer-events-none z-0 opacity-40"></div>
+    <div class="fixed -top-40 -right-40 w-96 h-96 bg-purple-600/20 rounded-full blur-[128px] pointer-events-none z-0"></div>
+    <div class="fixed top-1/2 -left-40 w-96 h-96 bg-blue-600/15 rounded-full blur-[128px] pointer-events-none z-0"></div>
+    <div class="fixed -bottom-40 right-1/3 w-96 h-96 bg-indigo-600/20 rounded-full blur-[128px] pointer-events-none z-0"></div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-purple via-brand-indigo to-brand-blue p-[2px] transition-transform duration-300 group-hover:scale-105">
+                        <div class="w-full h-full bg-brand-dark rounded-[10px] overflow-hidden flex items-center justify-center">
+                            <!-- استبدل الرابط أدناه برابط صورتك أو مسارها المحلي -->
+                            <img src="logo.ico" alt="Ali Altaee Logo" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-extrabold text-lg tracking-wider text-white">Ali-Altaee<span class="text-brand-blue">.</span></span>
+                        <span class="text-[11px] text-gray-400 font-medium">برمجة مواقع الويب & بوتات تلجرام</span>
+                    </div>
+                </a>
+
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+                    <a href="#services" class="hover:text-purple-400 transition-colors">الخدمات</a>
+                    <a href="#portfolio" class="hover:text-purple-400 transition-colors">المعرض</a>
+                    <a href="#certificates" class="hover:text-purple-400 transition-colors">الشهادات</a>
+                    <a href="#why-me" class="hover:text-purple-400 transition-colors">لماذا أنا؟</a>
+                    <a href="#process" class="hover:text-purple-400 transition-colors">خطوات العمل</a>
+                    <a href="#tech" class="hover:text-purple-400 transition-colors">التقنيات</a>
+                    <a href="#faq" class="hover:text-purple-400 transition-colors">الأسئلة الشائعة</a>
+                </nav>
+
+                <!-- CTA & Lang Toggle -->
+                <div class="flex items-center gap-4">
+
+                    <a href="https://t.me/altaee_z" class="px-5 py-2.5 rounded-full text-xs font-bold bg-gradient-to-r from-brand-purple via-brand-indigo to-brand-blue text-white shadow-lg hover:shadow-purple-500/25 transition-all transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-paper-plane me-1.5"></i> تواصل معي
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white text-xl p-2">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-card border-t border-gray-800/80 px-6 py-6 space-y-4">
+            <a href="#services" class="block text-gray-300 hover:text-purple-400 font-medium text-sm">الخدمات</a>
+            <a href="#portfolio" class="block text-gray-300 hover:text-purple-400 font-medium text-sm">المعرض</a>
+            <a href="#certificates" class="block text-gray-300 hover:text-purple-400 font-medium text-sm">الشهادات</a>
+            <a href="#why-me" class="block text-gray-300 hover:text-purple-400 font-medium text-sm">لماذا أنا؟</a>
+            <a href="#process" class="block text-gray-300 hover:text-purple-400 font-medium text-sm">خطوات العمل</a>
+            <a href="#tech" class="block text-gray-300 hover:text-purple-400 font-medium text-sm">التقنيات</a>
+            <a href="#faq" class="block text-gray-300 hover:text-purple-400 font-medium text-sm">الأسئلة الشائعة</a>
+            <a href="#contact" class="block text-center py-2.5 rounded-xl bg-purple-600 font-bold text-white text-sm">تواصل معي</a>
+        </div>
+    </header>
+
+    <main class="relative z-10 pt-28">
+
+        <!-- 1. HERO SECTION -->
+        <section class="min-h-[85vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 relative">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                <!-- Left Text Content -->
+                <div class="lg:col-span-7 text-center lg:text-right space-y-8">
+                    <!-- Status Badge -->
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-purple-500/30 text-xs font-semibold text-purple-300 shadow-inner">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 -ms-4"></span>
+                        <span>متاح حالياً لأستقبال مشاريع جديدة, تخدم عملك الخاص او العام</span>
+                    </div>
+
+                    <!-- Main Headline -->
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight text-white">
+                        أصمم <span class="gradient-text">مواقع ويب احترافية</span>
+                        <br class="hidden sm:inline" /> وبرمجة <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">بوتات تيليجرام</span>
+                    </h1>
+                    <!-- Subtitle -->
+                    <p class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        أحوّل فكرتك إلى موقع أو بوت احترافي سريع وآمن وعصري، مصمم بحدث التقنيات البرمجية لتلبية تطلعاتك وتطوير أعمالك.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-brand-purple via-brand-indigo to-brand-blue text-white font-bold text-base btn-glow shadow-2xl flex items-center justify-center gap-3">
+                            <span>اطلب مشروعك الآن</span>
+                            <i class="fa-solid fa-arrow-left text-sm"></i>
+                        </a>
+
+                        <a href="#portfolio" class="w-full sm:w-auto px-8 py-4 rounded-full glass-card hover:bg-gray-800/80 text-gray-200 font-bold text-base transition-all border border-gray-700/60 flex items-center justify-center gap-3 group">
+                            <i class="fa-solid fa-laptop-code text-purple-400 group-hover:scale-110 transition-transform"></i>
+                            <span>شاهد أعمالي</span>
+                        </a>
+                    </div>
+
+                    <!-- Trust indicators -->
+                    <div class="pt-6 flex items-center justify-center lg:justify-start gap-6 text-gray-400 text-xs">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-bolt text-yellow-400"></i>
+                            <span>أداء وسرعة فائقة</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+                            <span>حماية وتشفير </span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-headset text-blue-400"></i>
+                            <span>دعم فني متواصل</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles text-purple-400"></i>
+                            <span>اقتراحات احترافية لمشروعك</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right 3D Laptop & Floating Tech Icons Container -->
+                <div class="lg:col-span-5 relative perspective-1000 flex justify-center items-center">
+
+                    <!-- Floating Tech Badges -->
+                    <div class="absolute -top-6 right-4 z-20 glass-card px-4 py-2.5 rounded-2xl flex items-center gap-2 animate-float border border-purple-500/30">
+                        <i class="fa-brands fa-python text-yellow-400 text-xl"></i>
+                        <span class="text-xs font-bold text-gray-200">Python Telegram API</span>
+                    </div>
+
+                    <div class="absolute -bottom-6 left-2 z-20 glass-card px-4 py-2.5 rounded-2xl flex items-center gap-2 animate-float-delayed border border-blue-500/30">
+                        <i class="fa-brands fa-react text-cyan-400 text-xl"></i>
+                        <span class="text-xs font-bold text-gray-200">React & Modern UI</span>
+                    </div>
+
+                    <div class="absolute top-1/2 -left-8 z-20 glass-card p-3 rounded-2xl flex items-center justify-center animate-float border border-indigo-500/30">
+                        <i class="fa-brands fa-telegram text-blue-400 text-2xl"></i>
+                    </div>
+
+                    <!-- 3D Laptop Graphic -->
+                    <div class="laptop-screen w-full max-w-md glass-card rounded-2xl p-4 shadow-2xl relative border border-gray-700/50 bg-slate-900/90">
+                        <!-- Laptop Header Bar -->
+                        <div class="flex items-center justify-between pb-3 mb-3 border-b border-gray-800">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                            </div>
+                            <span class="text-[11px] text-gray-500 font-mono">ALi-Altaee.app ~ zsh</span>
+                            <i class="fa-solid fa-terminal text-xs text-gray-600"></i>
+                        </div>
+
+                        <!-- Code Preview Screen -->
+                        <div class="bg-gray-950 rounded-xl p-4 font-mono text-xs text-left leading-relaxed space-y-2 overflow-hidden shadow-inner dir-ltr">
+                            <div class="text-purple-400"><span class="text-blue-400">const</span> developer = {</div>
+                            <div class="ps-4 text-gray-300">name: <span class="text-emerald-400">'Web & Telegram Bot Developer'</span>,</div>
+                            <div class="ps-4 text-gray-300">status: <span class="text-emerald-400">'Ready for hire'</span>,</div>
+                            <div class="ps-4 text-gray-300">skills: [<span class="text-amber-300">'FullStack'</span>, <span class="text-amber-300">'Telegram API'</span>, <span class="text-amber-300">'Python'</span>],</div>
+                            <div class="ps-4 text-gray-300">buildProject: <span class="text-blue-400">async</span> () =&gt; {</div>
+                            <div class="ps-8 text-indigo-400">return <span class="text-emerald-400">'High Speed + Premium UI'</span>;</div>
+                            <div class="ps-4 text-gray-300">}</div>
+                            <div class="text-purple-400">};</div>
+                            <div class="text-gray-500 pt-2">// System active and ready for prompt...</div>
+                            <div class="inline-block w-2 h-4 bg-purple-500 animate-pulse align-middle"></div>
+                        </div>
+
+                        <!-- Laptop Keyboard Base Effect -->
+                        <div class="mt-4 pt-2 border-t border-gray-800 flex justify-between items-center text-[11px] text-gray-400">
+                            <span class="flex items-center gap-1 text-emerald-400">
+                                <i class="fa-solid fa-circle-check"></i>
+                                Server Online
+                            </span>
+                            <span>⚡ 100% Performance</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 2. ANIMATED STATISTICS -->
+        <section class="py-16 px-4 sm:px-6 lg:px-8 border-y border-gray-800/60 bg-slate-950/40">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-2 lg:grid-cols-5 gap-6">
+
+                    <!-- Stat Card 1 -->
+                    <div class="glass-card p-6 rounded-2xl text-center hover:scale-105 transition-transform duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-solid fa-diagram-project"></i>
+                        </div>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-white mb-1 tracking-tight">
+                            +<span class="stat-counter" data-target="50">0</span>
+                        </div>
+                        <div class="text-xs sm:text-sm text-gray-400 font-medium">عدد المشاريع المنجزة العامة</div>
+                    </div>
+                    <!-- Stat Card 1 -->
+                    <div class="glass-card p-6 rounded-2xl text-center hover:scale-105 transition-transform duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-solid fa-diagram-project"></i>
+                        </div>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-white mb-1 tracking-tight">
+                            +<span class="stat-counter" data-target="14">0</span>
+                        </div>
+                        <div class="text-xs sm:text-sm text-gray-400 font-medium">عدد المشاريع الموجودة في الموقع </div>
+                    </div>
+                    <!-- Stat Card 1 -->
+                    <div class="glass-card p-6 rounded-2xl text-center hover:scale-105 transition-transform duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-brands fa-telegram"></i>
+                        </div>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-white mb-1 tracking-tight">
+                            +<span class="stat-counter" data-target="2">0</span>
+                        </div>
+                        <div class="text-xs sm:text-sm text-gray-400 font-medium">عدد البوتات الموجودة في الموقع </div>
+                    </div>
+                    <!-- Stat Card 2 -->
+                    <div class="glass-card p-6 rounded-2xl text-center hover:scale-105 transition-transform duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-white mb-1 tracking-tight">
+                            +<span class="stat-counter" data-target="10">0</span>
+                        </div>
+                        <div class="text-xs sm:text-sm text-gray-400 font-medium">عدد العملاء السعداء</div>
+                    </div>
+
+                    <!-- Stat Card 3 -->
+                    <div class="glass-card p-6 rounded-2xl text-center hover:scale-105 transition-transform duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-white mb-1 tracking-tight">
+                            +<span class="stat-counter" data-target="3">0</span>
+                        </div>
+                        <div class="text-xs sm:text-sm text-gray-400 font-medium">سنوات الخبرة</div>
+                    </div>
+                    <!-- status card -->
+                    <div class="glass-card p-6 rounded-2xl text-center hover:scale-105 transition-transform duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-white mb-1 tracking-tight">
+                            +<span class="stat-counter" data-target="1">0</span>
+                        </div>
+                        <div class="text-xs sm:text-sm text-gray-400 font-medium">الشاهدات المكتسبة</div>
+                    </div>
+                    <!-- Stat Card 4 -->
+                    <div class="glass-card p-6 rounded-2xl text-center hover:scale-105 transition-transform duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-solid fa-face-smile"></i>
+                        </div>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-white mb-1 tracking-tight">
+                            <span class="stat-counter" data-target="90">0</span>%
+                        </div>
+                        <div class="text-xs sm:text-sm text-gray-400 font-medium">نسبة رضا العملاء</div>
+                    </div>
+
+                    <!-- Stat Card 5 -->
+                    <div class="glass-card p-6 rounded-2xl text-center col-span-2 lg:col-span-1 hover:scale-105 transition-transform duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-white mb-1 tracking-tight">24/7</div>
+                        <div class="text-xs sm:text-sm text-gray-400 font-medium">دعم فني واستشارة</div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- ==================== CERTIFICATES SECTION ==================== -->
+        <section id="certificates" class="py-20 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-indigo-300 to-blue-400">
+                        الشهادات والاعتمادات
+                    </h2>
+                    <p class="text-slate-400 mt-3 max-w-2xl mx-auto text-sm md:text-base">
+                        مؤهلات وشهادات أكاديمية ومهنية مُعتمدة في مجالات تطوير الويب وبرمجة الأنظمة.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Certificate Card 1 -->
+                    <div class="group relative bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 backdrop-blur-xl hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_0_25px_rgba(124,58,237,0.15)] flex flex-col justify-between"
+                        data-aos="fade-up" data-aos-delay="100">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-award text-2xl"></i>
+                                </div>
+                                <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700/50">
+                                مُعتمدة
+                            </span>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
+                                Algorithms & Problem-Solving - Level 2
+                            </h3>
+                            <div class="flex items-center gap-2 text-slate-400 text-sm mb-4">
+                                <i class="fa-solid fa-building-columns text-indigo-400 text-xs"></i>
+                                <span>الجهة المانحة: Programming Advices (الدكتور محمد أبو هدهود)</span>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+                            <!-- Date -->
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-regular fa-calendar-check text-blue-400"></i>
+                                <span>2026/07/02</span>
+                            </div>
+                            <div class="flex items-center gap-2.5 font-medium">
+                                <!-- 1. View Certificate in New Tab -->
+                                <a href="Page_1.jpg" target="_blank" rel="noopener noreferrer" class="group/btn text-purple-400 hover:text-purple-300 inline-flex items-center gap-1.5 transition-colors">
+                                    <span>عرض الشهادة</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"></i>
+                                </a>
+                                <span class="text-slate-700 select-none">|</span>
+                                <a href="Page_1.jpg" download="Algorithms-Level2-Certificate.jpg" class="group/btn text-slate-400 hover:text-purple-300 inline-flex items-center gap-1.5 transition-colors">
+                                    <i class="fa-solid fa-download text-[11px] group-hover/btn:scale-110 transition-transform"></i>
+                                    <span>تنزيل</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certificate Card 2 -->
+                    <div class="group relative bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 backdrop-blur-xl hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_0_25px_rgba(124,58,237,0.15)] flex flex-col justify-between"
+                        data-aos="fade-up" data-aos-delay="100">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-award text-2xl"></i>
+                                </div>
+                                <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700/50">
+                                مُعتمدة
+                            </span>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
+                                Introduction to Programming Using C++ Level 2
+                            </h3>
+                            <div class="flex items-center gap-2 text-slate-400 text-sm mb-4">
+                                <i class="fa-solid fa-building-columns text-indigo-400 text-xs"></i>
+                                <span>الجهة المانحة: Programming Advices (الدكتور محمد أبو هدهود)</span>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+                            <!-- Date -->
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-regular fa-calendar-check text-blue-400"></i>
+                                <span>2026/07/25</span>
+                            </div>
+                            <div class="flex items-center gap-2.5 font-medium">
+                                <!-- 1. View Certificate in New Tab -->
+                                <a href="Page_2.jpg" target="_blank" rel="noopener noreferrer" class="group/btn text-teal-400 hover:text-teal-300 inline-flex items-center gap-1.5 transition-colors">
+                                    <span>عرض الشهادة</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"></i>
+                                </a>
+                                <span class="text-slate-700 select-none">|</span>
+                                <a href="Page_2.jpg" download="Introduction to Programming Using C++ Level 2.jpg" class="group/btn text-slate-400 hover:text-purple-300 inline-flex items-center gap-1.5 transition-colors">
+                                    <i class="fa-solid fa-download text-[11px] group-hover/btn:scale-110 transition-transform"></i>
+                                    <span>تنزيل</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Certificate Card 3 -->
+
+        </section>
+        <!-- 3. SERVICES -->
+        <section id="services" class="py-24 px-4 sm:px-6 lg:px-8 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-brand-purple">الخدمات الاحترافية</h2>
+                    <p class="text-3xl sm:text-4xl font-black text-white">حلول برمجية متكاملة ترفع من قيمتك التجاريّة</p>
+                    <p class="text-gray-400 text-sm sm:text-base">أقدم لك أفضل الحلول المخصصة لمشروعك بأعلى معايير الجودة والأداء</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                    <!-- Service 1 -->
+                    <div class="glass-card p-6 rounded-2xl transition-all duration-300 hover:-translate-y-2 group">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white text-2xl mb-6 shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-building text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">تصميم مواقع شركات</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            مواقع تعريفية فاخرة تعكس هوية شركتك بأسلوب عصري ومتوافق مع جميع الشاشات.
+                        </p>
+                        <span class="text-xs font-semibold text-purple-400 flex items-center gap-2 group-hover:translate-x-[-4px] transition-transform">
+                        </span>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="glass-card p-6 rounded-2xl transition-all duration-300 hover:-translate-y-2 group">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-600 flex items-center justify-center text-white text-2xl mb-6 shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">متاجر إلكترونية</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            متاجر سريعة وسهلة الاستخدام تدعم طرق الدفع المختلفة وتجربة تسوق سلسة.
+                        </p>
+                        <span class="text-xs font-semibold text-blue-400 flex items-center gap-2 group-hover:translate-x-[-4px] transition-transform">
+                        </span>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="glass-card p-6 rounded-2xl transition-all duration-300 hover:-translate-y-2 group">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white text-2xl mb-6 shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-gauge-high"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">لوحات تحكم Dashboard</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            واجهات إدارية متطورة لمتابعة بياناتك وإحصائياتك وإدارة مشروعك بكل سهولة.
+                        </p>
+
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="glass-card p-6 rounded-2xl transition-all duration-300 hover:-translate-y-2 group border-purple-500/30">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center text-white text-2xl mb-6 shadow-lg shadow-sky-500/20 group-hover:scale-110 transition-transform">
+                            <i class="fa-brands fa-telegram"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">برمجة بوتات تيليجرام</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            بوتات ذكية ومخصصة بالكامل للأتمتة والرد الآلي وإدارة الاشتراكات والخدمات.
+                        </p>
+                        <span class="text-xs font-semibold text-sky-400 flex items-center gap-2 group-hover:translate-x-[-4px] transition-transform">
+                           
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. PORTFOLIO / GALLERY -->
+        <section id="portfolio" class="py-24 px-4 sm:px-6 lg:px-8 bg-slate-950/60 border-t border-gray-800/60">
+            <div class="max-w-7xl mx-auto">
+                <!-- Title & Filter buttons -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div>
+                        <h2 class="text-xs font-bold uppercase tracking-widest text-brand-blue mb-2">معرض الأعمال</h2>
+                        <p class="text-3xl sm:text-4xl font-black text-white">نماذج من أحدث المشروعات المنفذة</p>
+                    </div>
+
+                   <div class="flex flex-wrap gap-2 p-1.5 rounded-full glass-card border border-gray-800">
+    <button class="portfolio-filter active text-xs font-bold px-5 py-2.5 rounded-full transition-all bg-purple-600 text-white" data-filter="all">
+        الكل <span id="count-all" class="ml-1 px-1.5 py-0.5 text-[11px] bg-white/20 rounded-full">0</span>
+                        </button>
+                        <button class="portfolio-filter text-xs font-bold px-5 py-2.5 rounded-full transition-all text-gray-400 hover:text-white" data-filter="A1">
+        مواقع الويب <span id="count-A1" class="ml-1 px-1.5 py-0.5 text-[11px] bg-gray-800 rounded-full">0</span>
+    </button>
+                        <button class="portfolio-filter text-xs font-bold px-5 py-2.5 rounded-full transition-all text-gray-400 hover:text-white" data-filter="A2">
+        مواقع دراسية <span id="count-A2" class="ml-1 px-1.5 py-0.5 text-[11px] bg-gray-800 rounded-full">0</span>
+    </button>
+                        <button class="portfolio-filter text-xs font-bold px-5 py-2.5 rounded-full transition-all text-gray-400 hover:text-white" data-filter="A3">
+        بوتات تيليجرام <span id="count-A3" class="ml-1 px-1.5 py-0.5 text-[11px] bg-gray-800 rounded-full">0</span>
+    </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+                <!-- Project 1: Website -->
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 flex flex-col justify-between" data-category="A1">
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">موقع نهج الشيعة</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            هو منصة دينية تهدف لتقديم محتوى شيعي موثوق ومنظم، يشمل الأقسام المهمة مثل التسابيح، الأدعية، الزيارات، الصوتيات، والتقويمين الهجري والميلادي. يتميز بتصميم احترافي وسهل الاستخدام، ويركز على تسهيل الوصول للنصوص الدينية والأذكار اليومية
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="text-[10px] bg-purple-950/60 text-purple-300 px-2.5 py-1 rounded-md border border-purple-800/40">تسبيح</span>
+                            <span class="text-[10px] bg-blue-950/60 text-blue-300 px-2.5 py-1 rounded-md border border-blue-800/40">تصفح القرآن الكريم</span>
+                            <span class="text-[10px] bg-indigo-950/60 text-indigo-300 px-2.5 py-1 rounded-md border border-indigo-800/40">التقويم الهجري و الميلادي الشيعي</span>
+                        </div>
+                    </div>
+
+                    <!-- زر الانتقال بعرض البطاقة في الأسفل -->
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="https://www.shieaa.free.nf/" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-teal-500/10 via-purple-500/10 to-blue-500/10 border border-teal-500/30 hover:border-teal-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/20 group">
+                            <span>الانتقال للمنصة</span>
+                            <i class="fa-solid fa-arrow-left-long text-teal-400 transition-transform duration-300 group-hover:-translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2: Telegram Bot -->
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 flex flex-col justify-between" data-category="A3">
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-white group-hover:text-sky-400 transition-colors">عرض مميز لا يفوت</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            قوى سورس بوت متجر استثماري Telegram جاهز للعمل فوراً
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="text-[10px] bg-yellow-950/60 text-yellow-300 px-2.5 py-1 rounded-md border border-yellow-800/40">Python</span>
+                            <span class="text-[10px] bg-sky-950/60 text-sky-300 px-2.5 py-1 rounded-md border border-sky-800/40">Telegram API</span>
+                            <span class="text-[10px] bg-emerald-950/60 text-emerald-300 px-2.5 py-1 rounded-md border border-emerald-800/40">SQLite</span>
+                        </div>
+                    </div>
+
+                    <!-- زر التجربة بعرض البطاقة في الأسفل -->
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="https://t.me/TimRec_Bot" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-sky-500/10 via-blue-500/10 to-teal-500/10 border border-sky-500/30 hover:border-sky-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-sky-500/20 group">
+                            <span>تجربة البوت</span>
+                            <i class="fa-brands fa-telegram text-sky-400 text-lg transition-transform duration-300 group-hover:scale-110"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 3: Dashboard -->
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 flex flex-col justify-between" data-category="A2">
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">بوابة ادوات الملف (PDF) الذكية</h3>
+
+                        <div class="text-gray-400 text-xs space-y-2 leading-relaxed">
+                            <p><strong>خدمات PDF الذكية 📂:</strong> المنصة الأسرع لتحويل صورك إلى مستندات جاهزة للطباعة بدقة متناهية.</p>
+                            <p><strong>الغرض:</strong> ترتيب وتكرار الصور (شخصية، شعارات، كروت) على ورقة A4 واحدة تلقائياً 🖨️.</p>
+                            <div class="space-y-1 pt-1">
+                                <strong class="text-gray-300">المميزات:</strong>
+                                <ul class="list-disc list-inside space-y-1 pr-2">
+                                    <li>ضبط القياسات بالسنتيمتر (جواز، هوية، أو قياس حر) 📏.</li>
+                                    <li>تحميل مباشر بصيغة PDF عالي الجودة 📥.</li>
+                                </ul>
+                            </div>
+                            <p class="pt-1"><strong>الهدف:</strong> توفير الوقت وضمان عدم هدر ورق الطباعة بضغطة زر واحدة ⏱️</p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="text-[10px] bg-purple-950/60 text-purple-300 px-2.5 py-1 rounded-md border border-purple-800/40">PDF</span>
+                            <span class="text-[10px] bg-blue-950/60 text-blue-300 px-2.5 py-1 rounded-md border border-blue-800/40">JPG,PNG</span>
+                            <span class="text-[10px] bg-slate-900 text-gray-300 px-2.5 py-1 rounded-md border border-gray-700">SHEETS</span>
+                        </div>
+                    </div>
+
+                    <!-- زر الدخول للمنصة بعرض البطاقة في الأسفل -->
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="https://edit-pdf.free.nf" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-blue-500/10 border border-indigo-500/30 hover:border-indigo-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20 group">
+                            <span>الدخول للمنصة</span>
+                            <i class="fa-solid fa-arrow-left-long text-indigo-400 transition-transform duration-300 group-hover:-translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Project 4: Website -->
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 flex flex-col justify-between" data-category="A3">
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">Test Token API Telegrame</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            اختبار توكن تلكرام
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="text-[10px] bg-purple-950/60 text-purple-300 px-2.5 py-1 rounded-md border border-purple-800/40">TOKEN,APIs</span>
+                        </div>
+                    </div>
+
+                    <!-- زر زيارة المختبر بعرض البطاقة في الأسفل -->
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="https://www.altaee.free.nf/" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-teal-500/10 border border-purple-500/30 hover:border-purple-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 group">
+                            <span>زيارة المختبر</span>
+                            <i class="fa-solid fa-arrow-left-long text-purple-400 transition-transform duration-300 group-hover:-translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Project 5: Telegram Bot -->
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 flex flex-col justify-between" data-category="A3">
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-white group-hover:text-sky-400 transition-colors">معرض بواتي على التلجرام</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            موقع بسيط يعرض بوتاتي التي انشأتها على تلجرام.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="text-[10px] bg-yellow-950/60 text-yellow-300 px-2.5 py-1 rounded-md border border-yellow-800/40">BOTS</span>
+                            <span class="text-[10px] bg-indigo-950/60 text-indigo-300 px-2.5 py-1 rounded-md border border-indigo-800/40">Telegrame</span>
+                        </div>
+                    </div>
+
+                    <!-- زر زيارة المعرض بعرض البطاقة في الأسفل -->
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="https://www.my00002.free.nf/" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-sky-500/10 via-blue-500/10 to-teal-500/10 border border-sky-500/30 hover:border-sky-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-sky-500/20 group">
+                            <span>زيارة المعرض</span>
+                            <i class="fa-brands fa-telegram text-sky-400 text-lg transition-transform duration-300 group-hover:scale-110"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Project 6: Dashboard -->
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 flex flex-col justify-between" data-category="A1">
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">موقع تفقيط اﻻرقام السهل</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            مفقط ارقام هو بوابتك لتحويل اﻻرقام الى كلمات عربية بسهولة , يدعم الموقع تفقيط المبالغ المالية لعدة عملات , و يوفر واجهة احترافية و سريعة لضمان دقة عملك المالي
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="text-[10px] bg-purple-950/60 text-purple-300 px-2.5 py-1 rounded-md border border-purple-800/40">React</span>
+                            <span class="text-[10px] bg-sky-950/60 text-sky-300 px-2.5 py-1 rounded-md border border-sky-800/40">FastAPI</span>
+                        </div>
+                    </div>
+
+                    <!-- زر زيارة الموقع بعرض البطاقة في الأسفل -->
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="https://www.number-conversion.free.nf/" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-blue-500/10 border border-indigo-500/30 hover:border-indigo-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20 group">
+                            <span>زيارة الموقع</span>
+                            <i class="fa-solid fa-arrow-left-long text-indigo-400 transition-transform duration-300 group-hover:-translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Project 7: Dashboard -->
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 flex flex-col justify-between" data-category="A1">
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">السيرة الذاتية الخاصة بي</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            استعرض سيرتي الذاتية المهنية وخبراتي البرمجية والمشاريع التي نفذتها.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="text-[10px] bg-purple-950/60 text-purple-300 px-2.5 py-1 rounded-md border border-purple-800/40">CV</span>
+                        </div>
+                    </div>
+
+                    <!-- زر زيارة السيرة الذاتية بعرض البطاقة في الأسفل -->
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="https://www.altaee2.free.nf/" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-teal-500/10 border border-indigo-500/30 hover:border-indigo-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20 group">
+                            <span>زيارة السيرة الذاتية</span>
+                            <i class="fa-solid fa-arrow-left-long text-indigo-400 transition-transform duration-300 group-hover:-translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Project 8: Dashboard -->
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 flex flex-col justify-between" data-category="A1">
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">أداة معالجة النصوص</h3>
+                        <div class="text-gray-400 text-xs space-y-2 leading-relaxed">
+                            <p>موقعنا هو أداة متكاملة لمعالجة النصوص، مصممة بطريقة عصرية وسهلة الاستخدام. يوفر الموقع مجموعة من الوظائف الاحترافية لمساعدة المستخدمين على التعامل مع النصوص بسهولة وسرعة، مثل:</p>
+                            <ul class="list-disc list-inside space-y-1 pr-2 text-gray-300">
+                                <li>مكرر الجمل والكلمات.</li>
+                                <li>عداد وتحليل النصوص.</li>
+                                <li>تصميم متجاوب وأنيق.</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="text-[10px] bg-purple-950/60 text-purple-300 px-2.5 py-1 rounded-md border border-purple-800/40">Text</span>
+                        </div>
+                    </div>
+
+                    <!-- زر زيارة الأداة بعرض البطاقة في الأسفل -->
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="http://www.text-edit.free.nf/" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-teal-500/10 border border-indigo-500/30 hover:border-indigo-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20 group">
+                            <span>زيارة الأداة</span>
+                            <i class="fa-solid fa-arrow-left-long text-indigo-400 transition-transform duration-300 group-hover:-translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 10: Dashboard -->
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 flex flex-col justify-between" data-category="A1">
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">حاسبة سن البلوغ الشرعية</h3>
+                        <div class="text-gray-400 text-xs space-y-2 leading-relaxed">
+                            <p>موقعنا هو أداة إلكترونية تفاعلية مصممة بشكل احترافي، تهدف إلى مساعدة المستخدمين على معرفة تاريخ بلوغهم الشرعي بدقة وسهولة، معتمدًا على معادلة حسابية دقيقة.</p>
+                            <div class="space-y-1 pt-1">
+                                <strong class="text-gray-300">المميزات والخصائص:</strong>
+                                <ul class="list-disc list-inside space-y-1 pr-2 text-gray-300">
+                                    <li>حساب دقيق لتاريخ البلوغ.</li>
+                                    <li>طريقة الحساب تتم وفق المذهب الشيعي وحسب فتوى المرجع السيد علي السيستاني.</li>
+                                    <li>تصميم جذاب وواجهة مستخدم حديثة.</li>
+                                    <li>عرض نتائج شاملة مع المدة التي مضت على البلوغ.</li>
+                                    <li>عد تنازلي ونصائح إضافية.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="text-[10px] bg-purple-950/60 text-purple-300 px-2.5 py-1 rounded-md border border-purple-800/40">بلوغ</span>
+                            <span class="text-[10px] bg-sky-950/60 text-sky-300 px-2.5 py-1 rounded-md border border-sky-800/40">حسب فتوى المرجع السيد علي السيستاني</span>
+                        </div>
+                    </div>
+
+                    <!-- زر زيارة الحاسبة بعرض البطاقة في الأسفل -->
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="https://www.puberty-calculator.free.nf/" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-teal-500/10 border border-indigo-500/30 hover:border-indigo-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20 group">
+                            <span>زيارة الحاسبة</span>
+                            <i class="fa-solid fa-arrow-left-long text-indigo-400 transition-transform duration-300 group-hover:-translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Project 11: Dashboard -->
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 flex flex-col justify-between" data-category="A1">
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">حاسبة الوزن والطول المناسب</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            هو عبارة عن موقع يعطيك وزنك او طولك او عمرك المناسب افتراضاً على المعلومات التي تقدمها.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="text-[10px] bg-purple-950/60 text-purple-300 px-2.5 py-1 rounded-md border border-purple-800/40">React</span>
+                            <span class="text-[10px] bg-sky-950/60 text-sky-300 px-2.5 py-1 rounded-md border border-sky-800/40">FastAPI</span>
+                        </div>
+                    </div>
+
+                    <!-- زر زيارة الموقع بعرض البطاقة في الأسفل -->
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="https://www.wazn.free.nf/" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-teal-500/10 border border-indigo-500/30 hover:border-indigo-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20 group">
+                            <span>زيارة الموقع</span>
+                            <i class="fa-solid fa-arrow-left-long text-indigo-400 transition-transform duration-300 group-hover:-translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 12: Dashboard -->
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 flex flex-col justify-between" data-category="A1">
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">آلة الحاسبة البسيطة</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            آلة حاسبة إلكترونية سريعة وبسيطة لإنجاز العمليات الحسابية اليومية بكل سهولة.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="text-[10px] bg-purple-950/60 text-purple-300 px-2.5 py-1 rounded-md border border-purple-800/40">React</span>
+                            <span class="text-[10px] bg-sky-950/60 text-sky-300 px-2.5 py-1 rounded-md border border-sky-800/40">FastAPI</span>
+                        </div>
+                    </div>
+
+                    <!-- زر زيارة الموقع بعرض البطاقة في الأسفل -->
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="https://www.calculatorr.free.nf/" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-teal-500/10 border border-indigo-500/30 hover:border-indigo-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20 group">
+                            <span>زيارة الموقع</span>
+                            <i class="fa-solid fa-arrow-left-long text-indigo-400 transition-transform duration-300 group-hover:-translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 13: Dashboard -->
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 flex flex-col justify-between" data-category="A1">
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">ساعة بغداد</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            توقيت حي ودقيق لمدينة بغداد يعرض الساعة والتاريخ بتصميم أنيق ومميز.
+                        </p>
+                    </div>
+
+                    <!-- زر زيارة الموقع بعرض البطاقة في الأسفل -->
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="https://www.timerr.free.nf/" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-teal-500/10 border border-indigo-500/30 hover:border-indigo-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20 group">
+                            <span>زيارة الموقع</span>
+                            <i class="fa-solid fa-arrow-left-long text-indigo-400 transition-transform duration-300 group-hover:-translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Project 14: Dashboard -->
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 flex flex-col justify-between" data-category="A1">
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">حاسبة الأيام | أداة ذكية لحساب التواريخ بدقة وسهولة!</h3>
+                        <div class="text-gray-400 text-xs space-y-2 leading-relaxed">
+                            <p>هل تساءلت يومًا عن التاريخ بعد 30 يومًا؟ أو بعد 100 يوم؟ مع "حاسبة الأيام"، يمكنك الحصول على الإجابة بثوانٍ! هذه الأداة البسيطة والأنيقة مصممة خصيصًا لتمنحك دقة فائقة في حساب التواريخ. كل ما عليك فعله هو إدخال عدد الأيام التي
+                                تريد إضافتها، وستحصل فورًا على:</p>
+
+                            <ul class="list-disc list-inside space-y-1 pr-2 text-gray-300">
+                                <li><strong>اليوم من الأسبوع:</strong> لتُعرف أي يوم سيصادف.</li>
+                                <li><strong>التاريخ الميلادي:</strong> بثلاث صيغ مختلفة (أجنبية، رقمية، وعربية) لتناسب احتياجاتك.</li>
+                            </ul>
+
+                            <p class="pt-1">سواء كنت تخطط لمناسبة قادمة، أو تحتاج لحساب تاريخ مهم، أو لمجرد الفضول، حاسبة الأيام هي رفيقك المثالي.</p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="text-[10px] bg-purple-950/60 text-purple-300 px-2.5 py-1 rounded-md border border-purple-800/40">Dates</span>
+                            <span class="text-[10px] bg-blue-950/60 text-blue-300 px-2.5 py-1 rounded-md border border-blue-800/40">Calculator</span>
+                        </div>
+                    </div>
+
+                    <!-- زر زيارة الموقع بعرض البطاقة في الأسفل -->
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="https://www.day.free.nf/" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-teal-500/10 border border-indigo-500/30 hover:border-indigo-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20 group">
+                            <span>زيارة الموقع</span>
+                            <i class="fa-solid fa-arrow-left-long text-indigo-400 transition-transform duration-300 group-hover:-translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 15: Dashboard -->
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 flex flex-col justify-between" data-category="A1">
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">موقع حاسبة الخصم</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            موقع حاسبة الخصم يسهّل عليك معرفة سعر أي منتج بعد تطبيق الخصم بسرعة وبساطة. كل اللي عليك تسويه هو إدخال السعر الأصلي ونسبة الخصم، والموقع يحسب لك السعر النهائي فورًا. مثالي للتسوق أو التخطيط للميزانية الشخصية.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="text-[10px] bg-purple-950/60 text-purple-300 px-2.5 py-1 rounded-md border border-purple-800/40">Discount</span>
+                            <span class="text-[10px] bg-emerald-950/60 text-emerald-300 px-2.5 py-1 rounded-md border border-emerald-800/40">Finance</span>
+                        </div>
+                    </div>
+
+                    <!-- زر زيارة الموقع بعرض البطاقة في الأسفل -->
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="http://www.discount-calculator.free.nf/" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-teal-500/10 border border-indigo-500/30 hover:border-indigo-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20 group">
+                            <span>زيارة الموقع</span>
+                            <i class="fa-solid fa-arrow-left-long text-indigo-400 transition-transform duration-300 group-hover:-translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Project 16: BOTS -->
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 hover:border-cyan-900 transition-all duration-300 shadow-lg hover:shadow-cyan-500/10 flex flex-col justify-between" data-category="A3">
+                    <div class="p-6 space-y-5">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 shrink-0">
+                                <i class="fa-solid fa-robot text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors leading-tight">
+                                بوت التقارير والبحوث الجامعية الأقوى! 🚀
+                            </h3>
+                        </div>
+                        <div class="text-gray-400 text-sm leading-relaxed space-y-3">
+                            <p class="font-medium text-cyan-300/90">
+                                <i class="fa-solid fa-star text-xs mr-1"></i> استخدم البوت المجاني قبل اطلاق المدفوع 🌟
+                            </p>
+                            <p>
+                                لطلاب الجامعات والمعاهد، وداعاً لتعقيد تنسيق التقارير! الآن بضغطة زر واحدة صمم تقريرك الأكاديمي بشكل رسمي وفخم.
+                            </p>
+                            <ul class="space-y-2 pt-2 border-t border-gray-800/80 pt-3">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-file-signature text-cyan-500 mt-1 text-xs"></i>
+                                    <span><b>واجهة تقرير رسمية:</b> توليد غلاف احترافي يحتوي على معلوماتك (الجامعة، القسم، المادة...).</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-image text-cyan-500 mt-1 text-xs"></i>
+                                    <span><b>دعم الشعار الشفاف:</b> دمج شعار كليتك بدقة واحترافية عالية.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-palette text-cyan-500 mt-1 text-xs"></i>
+                                    <span><b>بوكسات تنسيق ملونة:</b> مطابقة للقوالب الجامعية المعتمدة.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-list-ol text-cyan-500 mt-1 text-xs"></i>
+                                    <span><b>ترقيم ذكي:</b> ترقيم تلقائي للصفحات.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-shield-halved text-cyan-500 mt-1 text-xs"></i>
+                                    <span><b>أمان عالي:</b> دعم قفل الملفات وتنسيق تلقائي للغات والأكواد.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- زر زيارة البوت بعرض البطاقة في الأسفل -->
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="https://t.me/g_z_o_bot" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500/10 via-teal-500/10 to-indigo-500/10 border border-cyan-500/30 hover:border-cyan-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20 group/btn">
+                            <span>@g_z_o_bot</span>
+                            <i class="fa-brands fa-telegram text-cyan-400 transition-transform duration-300 group-hover/btn:scale-110"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Project 17: BOTS -->
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 hover:border-cyan-900 transition-all duration-300 shadow-lg hover:shadow-cyan-500/10 flex flex-col justify-between" data-category="A3">
+                    <div class="p-6 space-y-5">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 shrink-0">
+                                <i class="fa-solid fa-robot text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors leading-tight">
+                                User Services || خدمات المستخدم
+                            </h3>
+                        </div>
+                        <div class="text-gray-400 text-sm leading-relaxed space-y-3">
+                            <p class="font-medium text-cyan-300/90">
+                                <i class="fa-solid fa-star text-xs mr-1"></i> الإصدار V.2.5.0 - بوت خدمات متكامل لتسهيل حياتك الرقمية مع تحديثات مستمرة لإضافة ميزات جديدة.
+                            </p>
+                            <p>
+                                منصة متكاملة تضم مجموعة واسعة من الخدمات والأقسام البرمجية، الدينية، الخدمية وأدوات الذكاء الاصطناعي وتحميل الوسائط في بوت واحد.
+                            </p>
+                            <ul class="space-y-2 pt-2 border-t border-gray-800/80 pt-3">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-file-signature text-cyan-500 mt-1 text-xs"></i>
+                                    <span><b>الخدمات الدينية:</b> قسم الأذكار والتسبيح (تسبيح الزهراء، 100 صلاة، أذكار الصباح والمساء) وتقويم هجري حصري لموقع السيد السيستاني.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-image text-cyan-500 mt-1 text-xs"></i>
+                                    <span><b>القرآن والذكاء الاصطناعي:</b> تصفح القرآن الكريم، وفهرس السور والأجزاء، ومحادثة مع ChatGPT، وأدوات معالجة الصور.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-palette text-cyan-500 mt-1 text-xs"></i>
+                                    <span><b>أدوات النصوص والملفات:</b> زخرفة النصوص، تحويل النصوص (PY, HTML, CSS, TXT, PHP, JS)، ضغط وفك ضغط ملفات ZIP، وتشکیل الکلمات.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-list-ol text-cyan-500 mt-1 text-xs"></i>
+                                    <span><b>التحميل والخدمات:</b> تحميل الوسائط من Pinterest و TikTok و Instagram (فيديو وصوت)، واختصار الروابط، وتدوين المهام والتذكيرات.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-shield-halved text-cyan-500 mt-1 text-xs"></i>
+                                    <span><b>حسابات وتعرف:</b> حساب العمر بدقة، حساب سن التكليف الشرعي، والتعرف على موديل السيارات من الصور.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- زر زيارة البوت بعرض البطاقة في الأسفل -->
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="https://t.me/Z0A_BOT" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500/10 via-teal-500/10 to-indigo-500/10 border border-cyan-500/30 hover:border-cyan-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20 group/btn">
+                            <span>@Z0A_BOT</span>
+                            <i class="fa-brands fa-telegram text-cyan-400 transition-transform duration-300 group-hover/btn:scale-110"></i>
+                        </a>
+                    </div>
+                </div>
+                <!--
+                <div class="portfolio-item glass-card rounded-2xl overflow-hidden group border border-gray-800 hover:border-cyan-900 transition-all duration-300 shadow-lg hover:shadow-cyan-500/10 flex flex-col justify-between" data-category="A3">
+                    <div class="p-6 space-y-5">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 shrink-0">
+                                <i class="fa-solid fa-robot text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors leading-tight">
+                            </h3>
+                        </div>
+                        <div class="text-gray-400 text-sm leading-relaxed space-y-3">
+                            <p class="font-medium text-cyan-300/90">
+                                <i class="fa-solid fa-star text-xs mr-1"></i>
+                            </p>
+                            <p>
+                            </p>
+                            <ul class="space-y-2 pt-2 border-t border-gray-800/80 pt-3">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-file-signature text-cyan-500 mt-1 text-xs"></i>
+                                    <span><b>العنوان:</b> الوصف...</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-image text-cyan-500 mt-1 text-xs"></i>
+                                    <span><b>العنوان:</b> الوصف...</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-palette text-cyan-500 mt-1 text-xs"></i>
+                                    <span><b>العنوان:</b> الوصف...</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-list-ol text-cyan-500 mt-1 text-xs"></i>
+                                    <span><b>العنوان:</b> الوصف...</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-shield-halved text-cyan-500 mt-1 text-xs"></i>
+                                    <span><b>العنوان:</b> الوصف...</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-slate-950/40 border-t border-gray-800/80">
+                        <a href="https://t.me/YOUR_BOT_USERNAME" target="_blank" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500/10 via-teal-500/10 to-indigo-500/10 border border-cyan-500/30 hover:border-cyan-400 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20 group/btn">
+                            <span>@YOUR_BOT_USERNAME</span>
+                            <i class="fa-brands fa-telegram text-cyan-400 transition-transform duration-300 group-hover/btn:scale-110"></i>
+                        </a>
+                    </div>
+                </div>
+-->
+
+
+
+            </div>
+            </div>
+        </section>
+
+        <!-- 5. WHY CHOOSE ME -->
+        <section id="why-me" class="py-24 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-brand-purple">المميزات التنافسية</h2>
+                    <p class="text-3xl sm:text-4xl font-black text-white">لماذا تختار العمل معي؟</p>
+                    <p class="text-gray-400 text-sm">أحرص على تقديم قيمة حقيقية تتجاوز مجرد كتابة السطور البرمجية</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <!-- Feature 1 -->
+                    <div class="glass-card p-8 rounded-3xl border border-gray-800 hover:border-purple-500/50 transition-all duration-300 relative overflow-hidden group">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">سرعة فائقة في التسليم</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            التزام تام بالمواعيد المحددة مع الحفاظ على أعلى درجات الجودة وبدون أي تأخير.
+                        </p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="glass-card p-8 rounded-3xl border border-gray-800 hover:border-blue-500/50 transition-all duration-300 relative overflow-hidden group">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">تصميم عصري وجذاب</h3>
+
+                    </div>
+
+
+                    <!-- Feature 4 -->
+                    <div class="glass-card p-8 rounded-3xl border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 relative overflow-hidden group">
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-mobile-screen"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">متوافق مع جميع الشاشات</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            تجاوب كامل بنسبة 100% مع أجهزة الجوال والتابلت وشاشات الحواسيب بجميع الأحجام.
+                        </p>
+                    </div>
+
+                    <!-- Feature 5 -->
+                    <div class="glass-card p-8 rounded-3xl border border-gray-800 hover:border-rose-500/50 transition-all duration-300 relative overflow-hidden group">
+                        <div class="w-12 h-12 rounded-2xl bg-rose-500/10 text-rose-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">أمان وتشفير متقدم</h3>
+
+                    </div>
+
+                    <!-- Feature 6 -->
+                    <div class="glass-card p-8 rounded-3xl border border-gray-800 hover:border-amber-500/50 transition-all duration-300 relative overflow-hidden group">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">دعم فني وتحديثات مستمرة</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            متابعة مجانية بعد التسليم لحل أي استفسار وضمان استقرار أداء النظام باستمرار.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. WORK PROCESS TIMELINE -->
+        <section id="process" class="py-24 px-4 sm:px-6 lg:px-8 bg-slate-950/40 border-y border-gray-800/60">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-brand-blue">خطوات التنفيذ</h2>
+                    <p class="text-3xl sm:text-4xl font-black text-white">كيف نعمل معاً على مشروعك؟</p>
+                    <p class="text-gray-400 text-sm">منهجية منظمة تضمن تحويل الفكرة إلى منتج حقيقي بكل سهولة</p>
+                </div>
+
+                <!-- Timeline Steps -->
+                <div class="relative grid grid-cols-1 md:grid-cols-5 gap-6">
+
+                    <!-- Line connector for desktop -->
+                    <div class="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 -translate-y-6 z-0"></div>
+
+                    <!-- Step 1 -->
+                    <div class="glass-card p-6 rounded-2xl text-center relative z-10 border border-gray-800 hover:border-purple-500 transition-all">
+                        <div class="w-12 h-12 rounded-full bg-purple-600 text-white font-extrabold flex items-center justify-center mx-auto mb-4 ring-4 ring-purple-950 shadow-lg shadow-purple-500/30">
+                            1
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">مناقشة الفكرة</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">فهم متطلباتك بالتفصيل وتحديد الأهداف والتفاصيل الفنية.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="glass-card p-6 rounded-2xl text-center relative z-10 border border-gray-800 hover:border-indigo-500 transition-all">
+                        <div class="w-12 h-12 rounded-full bg-indigo-600 text-white font-extrabold flex items-center justify-center mx-auto mb-4 ring-4 ring-indigo-950 shadow-lg shadow-indigo-500/30">
+                            2
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">تصميم الواجهات UI</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">إعداد المخططات العصرية للواجهات والألوان ومراجعتها معك.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="glass-card p-6 rounded-2xl text-center relative z-10 border border-gray-800 hover:border-blue-500 transition-all">
+                        <div class="w-12 h-12 rounded-full bg-blue-600 text-white font-extrabold flex items-center justify-center mx-auto mb-4 ring-4 ring-blue-950 shadow-lg shadow-blue-500/30">
+                            3
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">التطوير والبرمجة</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">كتابة الكود البرمجي النظيف وبناء القواعد والـ APIs بكفاءة.</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="glass-card p-6 rounded-2xl text-center relative z-10 border border-gray-800 hover:border-sky-500 transition-all">
+                        <div class="w-12 h-12 rounded-full bg-sky-600 text-white font-extrabold flex items-center justify-center mx-auto mb-4 ring-4 ring-sky-950 shadow-lg shadow-sky-500/30">
+                            4
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">الاختبار والتدقيق</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">اختبار تجربة المستخدم والحماية والأداء العالي والتأكد من خلوه من الأخطاء.</p>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="glass-card p-6 rounded-2xl text-center relative z-10 border border-gray-800 hover:border-emerald-500 transition-all">
+                        <div class="w-12 h-12 rounded-full bg-emerald-600 text-white font-extrabold flex items-center justify-center mx-auto mb-4 ring-4 ring-emerald-950 shadow-lg shadow-emerald-500/30">
+                            5
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">التسليم والإطلاق</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">نشر المشروع على السيرفر ومساعدتك على تشغيله والانطلاق.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. TECHNOLOGIES -->
+        <section id="tech" class="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto mb-12 text-center">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-purple mb-2">التقنيات المستخدمة</h2>
+                <p class="text-2xl sm:text-3xl font-black text-white">أدوات وبرمجيات حديثة لبناء أفضل الحلول</p>
+            </div>
+
+            <!-- Animated Tech Badges Marquee -->
+            <div class="flex gap-6 justify-center flex-wrap max-w-5xl mx-auto">
+
+                <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-800 hover:border-orange-500/50 transition-all">
+                    <i class="fa-brands fa-html5 text-2xl text-orange-500"></i>
+                    <span class="font-bold text-sm text-gray-200">HTML5</span>
+                </div>
+                <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-800 hover:border-blue-500/50 transition-all">
+                    <i class="fa-brands fa-css3-alt text-2xl text-blue-500"></i>
+                    <span class="font-bold text-sm text-gray-200">CSS3</span>
+                </div>
+                <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-800 hover:border-green-500/50 transition-all">
+                    <i class="fa-solid fa-robot text-teal-400 text-xl"></i>
+                    <span class="font-bold text-sm text-gray-200">Gemini AI</span>
+                </div>
+                <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-800 hover:border-blue-500/50 transition-all">
+                    <i class="fa-solid fa-wand-magic-sparkles text-blue-400 text-xl"></i>
+                    <span class="font-bold text-sm text-gray-200">Copilot</span>
+                </div>
+                <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-800 hover:border-green-500/50 transition-all">
+                    <i class="fa-solid fa-comment-dots text-green-500 text-xl"></i>
+                    <span class="font-bold text-sm text-gray-200">ChatGPT</span>
+                </div>
+
+                <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-800 hover:border-blue-500/50 transition-all">
+                    <i class="fa-solid fa-server text-indigo-400 text-xl"></i>
+                    <span class="font-bold text-sm text-gray-200">InfinityFree</span>
+                </div>
+                <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-800 hover:border-red-500/50 transition-all">
+                    <i class="fa-solid fa-mobile-screen-button text-purple-400 text-xl"></i>
+                    <span class="font-bold text-sm text-gray-200">TrebEdit</span>
+                </div>
+                <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-800 hover:border-blue-500/50 transition-all">
+                    <i class="fa-solid fa-code text-blue-500 text-xl"></i>
+                    <span class="font-bold text-sm text-gray-200">VS CODE</span>
+                </div>
+                <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-800 hover:border-blue-500/50 transition-all">
+                    <i class="fa-brands fa-css3-alt text-2xl text-blue-500"></i>
+                    <span class="font-bold text-sm text-gray-200">CSS3</span>
+                </div>
+
+                <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-800 hover:border-yellow-500/50 transition-all">
+                    <i class="fa-brands fa-js text-2xl text-yellow-400"></i>
+                    <span class="font-bold text-sm text-gray-200">JavaScript</span>
+                </div>
+
+                <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-800 hover:border-cyan-500/50 transition-all">
+                    <i class="fa-solid fa-code text-2xl text-cyan-400"></i>
+                    <span class="font-bold text-sm text-gray-200">Tailwind CSS</span>
+                </div>
+
+                <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-800 hover:border-amber-500/50 transition-all">
+                    <i class="fa-solid fa-fire text-2xl text-amber-500"></i>
+                    <span class="font-bold text-sm text-gray-200">Firebase</span>
+                </div>
+
+                <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-800 hover:border-yellow-400/50 transition-all">
+                    <i class="fa-brands fa-python text-2xl text-yellow-400"></i>
+                    <span class="font-bold text-sm text-gray-200">Python</span>
+                </div>
+
+                <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-800 hover:border-sky-500/50 transition-all">
+                    <i class="fa-brands fa-telegram text-2xl text-sky-400"></i>
+                    <span class="font-bold text-sm text-gray-200">Telegram API</span>
+                </div>
+
+
+
+                <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-800 hover:border-gray-400/50 transition-all">
+                    <i class="fa-brands fa-github text-2xl text-white"></i>
+                    <span class="font-bold text-sm text-gray-200">GitHub</span>
+                </div>
+
+
+
+            </div>
+
+        </section>
+
+        <!-- 8. TESTIMONIALS -->
+        <section class="py-24 px-4 sm:px-6 lg:px-8 bg-slate-950/60 border-t border-gray-800/60">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-blue mb-2">آراء العملاء</h2>
+                <p class="text-3xl font-black text-white mb-12">ماذا يقول العملاء عن خدماتي؟</p>
+
+                <!-- Testimonial Slider Container -->
+                <div class="relative glass-card p-8 sm:p-12 rounded-3xl border border-gray-800 shadow-2xl">
+                    <i class="fa-solid fa-quote-right text-4xl text-purple-500/20 absolute top-6 right-6"></i>
+
+                    <div id="testimonial-slider" class="space-y-6">
+                        <!-- Testimonial Card 1 -->
+                        <div class="testimonial-item space-y-4">
+                            <div class="text-yellow-400 text-lg flex justify-center gap-1">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-gray-300 text-base sm:text-lg italic leading-relaxed">
+                            </p>
+                            <div class="pt-4">
+                                <div class="font-bold text-white text-base"> </div>
+                                <div class="text-xs text-gray-400"> </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slider Controls -->
+                    <div class="flex justify-center gap-3 mt-8">
+                        <button class="testimonial-dot w-3 h-3 rounded-full bg-purple-600 transition-all"></button>
+                        <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-700 hover:bg-gray-500 transition-all"></button>
+                        <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-700 hover:bg-gray-500 transition-all"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. FAQ SECTION -->
+        <section id="faq" class="py-24 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-brand-purple">الأسئلة الشائعة</h2>
+                    <p class="text-3xl font-black text-white">إجابات على الاستفسارات المتكررة</p>
+                </div>
+
+                <div class="space-y-4">
+
+                    <!-- FAQ 1 -->
+                    <div class="glass-card rounded-2xl border border-gray-800 overflow-hidden">
+                        <button class="faq-toggle w-full p-6 text-right font-bold text-base text-white flex justify-between items-center gap-4">
+                            <span>كم تستغرق مدة تنفيذ الموقع أو البوت؟</span>
+                            <i class="fa-solid fa-chevron-down text-purple-400 text-sm transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-gray-400 text-sm leading-relaxed">
+                            <p class="pb-6">
+                                تختلف المدة بحسب حجم وتفاصيل المشروع. في العادة يستغرق بوت التيليجرام من 2 إلى 5 أيام، بينما تستغرق المواقع الإلكترونية واللوحات الإدارية من 5 إلى 12 يوم عمل.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="glass-card rounded-2xl border border-gray-800 overflow-hidden">
+                        <button class="faq-toggle w-full p-6 text-right font-bold text-base text-white flex justify-between items-center gap-4">
+                            <span>هل تقدم دعم فني وتعديلات بعد التسليم؟</span>
+                            <i class="fa-solid fa-chevron-down text-purple-400 text-sm transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-gray-400 text-sm leading-relaxed">
+                            <p class="pb-6">
+                                نعم بالتأكيد، أقدم فترة دعم فني مجانية بعد إطلاق المشروع لضمان استقرار الأداء وحل أي ملاحظات فوراً.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="glass-card rounded-2xl border border-gray-800 overflow-hidden">
+                        <button class="faq-toggle w-full p-6 text-right font-bold text-base text-white flex justify-between items-center gap-4">
+        <span>ما هي طرق الدفع المتاحة لطلب المشروع؟</span>
+        <i class="fa-solid fa-chevron-down text-purple-400 text-sm transition-transform duration-300"></i>
+    </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-gray-400 text-sm leading-relaxed">
+                            <div class="pb-6 space-y-4">
+                                <p>
+                                    انتقل لقسم طرق الدفع وستشاهد طرق الدفع المتوفرة بالتفصيل.
+                                </p>
+                                <a href="#payment-methods" class="inline-flex items-center gap-2 py-2 px-4 rounded-xl bg-purple-500/10 border border-purple-500/30 hover:border-purple-400 text-purple-300 hover:text-white font-medium text-xs transition-all duration-300">
+                                    <i class="fa-solid fa-arrow-down"></i>
+                                    <span>الذهاب إلى قسم طرق الدفع</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="glass-card rounded-2xl border border-gray-800 overflow-hidden">
+                        <button class="faq-toggle w-full p-6 text-right font-bold text-base text-white flex justify-between items-center gap-4">
+                            <span>هل يمكن استضافة بوت التيليجرام ليعمل 24 ساعة بدون انقطاع؟</span>
+                            <i class="fa-solid fa-chevron-down text-purple-400 text-sm transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-gray-400 text-sm leading-relaxed">
+                            <p class="pb-6">
+                                نعم، أقوم بربط وتثبيت البوت على سيرفرات خادمة عالية الكفاءة (VPS) ليعمل على مدار الساعة 24/7 دون أي توقف.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- SECTION: Payment Methods -->
+            <section id="payment-methods" class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-950/20">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-2">طرق الدفع</h2>
+                        <p class="text-3xl font-black text-white">نقبل طرق الدفع التالية</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        <!-- MasterCard -->
+                        <div class="payment-card flex flex-col items-center gap-3 p-5 rounded-2xl border border-gray-800 transition-all duration-300 hover:border-orange-500 group">
+                            <i class="fa-brands fa-cc-mastercard text-2xl text-orange-500 transition-all group-hover:scale-110"></i>
+                            <span class="text-sm font-bold text-orange-500">MasterCard</span>
+                        </div>
+                        <!-- ZainCash -->
+                        <div class="payment-card flex flex-col items-center gap-3 p-5 rounded-2xl border border-gray-800 transition-all duration-300 hover:border-yellow-500 group">
+                            <i class="fa-solid fa-wallet text-2xl text-yellow-500 transition-all group-hover:scale-110"></i>
+                            <span class="text-sm font-bold text-yellow-500">ZainCash</span>
+                        </div>
+                        <!-- Zain Iraq -->
+                        <div class="payment-card flex flex-col items-center gap-3 p-5 rounded-2xl border border-gray-800 transition-all duration-300 hover:border-red-500 group">
+                            <i class="fa-solid fa-mobile-screen text-2xl text-red-500 transition-all group-hover:scale-110"></i>
+                            <span class="text-sm font-bold text-red-500">Zain Iraq</span>
+                        </div>
+                        <!-- Asiacell -->
+                        <div class="payment-card flex flex-col items-center gap-3 p-5 rounded-2xl border border-gray-800 transition-all duration-300 hover:border-indigo-500 group">
+                            <i class="fa-solid fa-sim-card text-2xl text-indigo-500 transition-all group-hover:scale-110"></i>
+                            <span class="text-sm font-bold text-indigo-500">Asiacell</span>
+                        </div>
+                        <!-- Bank of Iraq -->
+                        <div class="payment-card flex flex-col items-center gap-3 p-5 rounded-2xl border border-gray-800 transition-all duration-300 hover:border-emerald-500 group">
+                            <i class="fa-solid fa-building-columns text-2xl text-emerald-500 transition-all group-hover:scale-110"></i>
+                            <span class="text-sm font-bold text-emerald-500">Bank Of Iraq</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <!-- SECTION: Social Media Links -->
+        <section id="social-media" class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-950/20">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-teal-400 mb-2">تواصل معي</h2>
+                    <p class="text-3xl font-black text-white">تابعني على منصات التواصل</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/ali0altaee" class="social-card flex flex-col items-center gap-3 p-5 rounded-2xl border border-gray-800 transition-all duration-300 hover:border-blue-600 group">
+                        <i class="fa-brands fa-facebook text-2xl text-blue-600 transition-all group-hover:scale-110"></i>
+                        <span class="text-sm font-bold text-blue-600">Facebook</span>
+                    </a>
+                    <!-- Telegram -->
+                    <a href="https://t.me/altaee_z" class="social-card flex flex-col items-center gap-3 p-5 rounded-2xl border border-gray-800 transition-all duration-300 hover:border-sky-500 group">
+                        <i class="fa-brands fa-telegram text-2xl text-sky-500 transition-all group-hover:scale-110"></i>
+                        <span class="text-sm font-bold text-sky-500">Telegram</span>
+                    </a>
+                    <!-- Telegram channel-->
+                    <a href="https://t.me/my00002" class="social-card flex flex-col items-center gap-3 p-5 rounded-2xl border border-gray-800 transition-all duration-300 hover:border-sky-500 group">
+                        <i class="fa-brands fa-telegram text-2xl text-sky-500 transition-all group-hover:scale-110"></i>
+                        <span class="text-sm font-bold text-sky-500">Telegram Channel</span>
+                    </a>
+                    <!-- YouTube -->
+                    <a href="http://youtube.com/@ali_altaee" class="social-card flex flex-col items-center gap-3 p-5 rounded-2xl border border-gray-800 transition-all duration-300 hover:border-red-600 group">
+                        <i class="fa-brands fa-youtube text-2xl text-red-600 transition-all group-hover:scale-110"></i>
+                        <span class="text-sm font-bold text-red-600">YouTube</span>
+                    </a>
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/posts/%D8%B9%D9%84%D9%8A-%D8%A7%D9%84%D8%B7%D8%A7%D8%A6%D9%8A-8271a22bb_%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85-%D8%B9%D9%84%D9%8A%D9%83%D9%85-%D9%88%D8%B1%D8%AD%D9%85%D8%A9-%D8%A7%D9%84%D9%84%D9%87-%D9%88%D8%A8%D8%B1%D9%83%D8%A7%D8%AA%D9%87-%D8%A3%D9%86%D8%A7-%D8%B9%D9%84%D9%8A-activity-7354831506831241217-SxHO?utm_source=social_share_send&utm_medium=android_app&rcm=ACoAAEy8eB8BCLeMukHqvH56CM8CU1URImzISOA&utm_campaign=copy_link"
+                        class="social-card flex flex-col items-center gap-3 p-5 rounded-2xl border border-gray-800 transition-all duration-300 hover:border-blue-700 group">
+                        <i class="fa-brands fa-linkedin text-2xl text-blue-700 transition-all group-hover:scale-110"></i>
+                        <span class="text-sm font-bold text-blue-700">LinkedIn</span>
+                    </a>
+                    <!-- TikTok -->
+                    <a href="https://www.tiktok.com/@g_30_j" class="social-card flex flex-col items-center gap-3 p-5 rounded-2xl border border-gray-800 transition-all duration-300 hover:border-pink-500 group">
+                        <i class="fa-brands fa-tiktok text-2xl text-pink-500 transition-all group-hover:scale-110"></i>
+                        <span class="text-sm font-bold text-pink-500">TikTok</span>
+                    </a>
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/g_30_j" class="social-card flex flex-col items-center gap-3 p-5 rounded-2xl border border-gray-800 transition-all duration-300 hover:border-purple-600 group">
+                        <i class="fa-brands fa-instagram text-2xl text-purple-600 transition-all group-hover:scale-110"></i>
+                        <span class="text-sm font-bold text-purple-600">Instagram</span>
+                    </a>
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/g_30_j" class="social-card flex flex-col items-center gap-3 p-5 rounded-2xl border border-gray-800 transition-all duration-300 hover:border-green-500 group">
+                        <i class="fa-brands fa-whatsapp text-2xl text-green-500 transition-all group-hover:scale-110"></i>
+                        <span class="text-sm font-bold text-green-500">WhatsApp</span>
+                    </a>
+                    <!-- Snapchat -->
+                    <a href="https://www.snapchat.com/add/altaee445" class="social-card flex flex-col items-center gap-3 p-5 rounded-2xl border border-gray-800 transition-all duration-300 hover:border-yellow-400 group">
+                        <i class="fa-brands fa-snapchat text-2xl text-yellow-400 transition-all group-hover:scale-110"></i>
+                        <span class="text-sm font-bold text-yellow-400">Snapchat</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 11. FOOTER -->
+    <footer class="border-t border-gray-800/80 bg-slate-950 py-10 px-4 text-center relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col items-center gap-4">
+
+            <!-- حاوية الوقت والتاريخ -->
+            <div id="calendar" class="text-x text-gray-400 space-y-2">
+                <span class="block text-teal-400 font-bold text-lg" id="baghdad-time">جاري تحميل الساعة...</span>
+                <span class="block text-white" id="gregorian-date">📅 جاري تحميل التاريخ...</span>
+                <span class="block text-teal-500" id="hijri-date">🕌 الهجري: جاري الجلب...</span>
+            </div>
+
+            <!-- الحقوق -->
+            <div class="text-x text-gray-600 border-t border-gray-800 pt-4 w-full max-w-xs">
+                © 2025 Ali Altaee. كل الحقوق محفوظة.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Interactive Mouse Follower Lighting
+        const cursorBlur = document.getElementById('cursor-blur');
+        document.addEventListener('mousemove', (e) => {
+            cursorBlur.style.left = e.clientX + 'px';
+            cursorBlur.style.top = e.clientY + 'px';
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // FAQ Accordion Toggle
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+
+                const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+
+                // Close all other FAQs
+                document.querySelectorAll('.faq-content').forEach(c => c.style.maxHeight = '0px');
+                document.querySelectorAll('.faq-toggle i').forEach(i => i.style.transform = 'rotate(0deg)');
+
+                if (!isOpen) {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        // Portfolio Filtering
+        const filterBtns = document.querySelectorAll('.portfolio-filter');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-purple-600', 'text-white');
+                    b.classList.add('text-gray-400');
+                });
+                btn.classList.add('active', 'bg-purple-600', 'text-white');
+                btn.classList.remove('text-gray-400');
+
+                const filter = btn.getAttribute('data-filter');
+
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                        gsap.fromTo(item, {
+                            opacity: 0,
+                            scale: 0.9
+                        }, {
+                            opacity: 1,
+                            scale: 1,
+                            duration: 0.4
+                        });
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Animated Counter Numbers on Scroll
+        gsap.registerPlugin(ScrollTrigger);
+
+        document.querySelectorAll('.stat-counter').forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            gsap.to(counter, {
+                innerText: target,
+                duration: 2,
+                snap: {
+                    innerText: 1
+                },
+                scrollTrigger: {
+                    trigger: counter,
+                    start: 'top 85%',
+                }
+            });
+        });
+
+        // Testimonial Carousel Mock logic
+        const testimonials = [{
+            name: "لم يتم اضافة اسم",
+            role: "لم يتم اضافة شركة عمل",
+            text: "لم يتم اضافة وصف"
+        }];
+
+        let currentTestimonial = 0;
+        const sliderContainer = document.getElementById('testimonial-slider');
+        const dots = document.querySelectorAll('.testimonial-dot');
+
+        function updateTestimonial(index) {
+            currentTestimonial = index;
+            const t = testimonials[index];
+            sliderContainer.innerHTML = `
+                <div class="testimonial-item space-y-4">
+                    <div class="text-yellow-400 text-lg flex justify-center gap-1">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 text-base sm:text-lg italic leading-relaxed">"${t.text}"</p>
+                    <div class="pt-4">
+                        <div class="font-bold text-white text-base">${t.name}</div>
+                        <div class="text-xs text-gray-400">${t.role}</div>
+                    </div>
+                </div>
+            `;
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add('bg-purple-600');
+                    dot.classList.remove('bg-gray-700');
+                } else {
+                    dot.classList.remove('bg-purple-600');
+                    dot.classList.add('bg-gray-700');
+                }
+            });
+            gsap.fromTo('.testimonial-item', {
+                opacity: 0,
+                y: 10
+            }, {
+                opacity: 1,
+                y: 0,
+                duration: 0.5
+            });
+        }
+
+        dots.forEach((dot, idx) => {
+            dot.addEventListener('click', () => updateTestimonial(idx));
+        });
+
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            updateTestimonial(currentTestimonial);
+        }, 5000);
+        document.addEventListener("DOMContentLoaded", () => {
+            // تحديد جميع بطاقات المشاريع في المعرض
+            const items = document.querySelectorAll('.portfolio-item');
+
+            // حساب العدد الإجمالي
+            document.getElementById('count-all').textContent = items.length;
+
+            // حساب عدد عناصر كل فئة بناءً على الـ data-category
+            const categories = ['A1', 'A2', 'A3'];
+
+            categories.forEach(category => {
+                const count = document.querySelectorAll(`.portfolio-item[data-category="${category}"]`).length;
+                const badge = document.getElementById(`count-${category}`);
+                if (badge) {
+                    badge.textContent = count;
+                }
+            });
+        });
+        // 1. تحديث الساعة وحفظ التاريخ الميلادي
+        function updateClockAndDate() {
+            const now = new Date();
+
+            const timeOptions = {
+                timeZone: 'Asia/Baghdad',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                hour12: true
+            };
+            document.getElementById('baghdad-time').innerText = new Intl.DateTimeFormat('ar-IQ', timeOptions).format(now);
+
+            const dateOptions = {
+                timeZone: 'Asia/Baghdad',
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            document.getElementById('gregorian-date').innerText = `📅 ${new Intl.DateTimeFormat('ar-IQ', dateOptions).format(now)}`;
+        }
+
+        setInterval(updateClockAndDate, 1000);
+        updateClockAndDate();
+
+        // 2. جلب التاريخ الهجري مع استخدام بروكسي أسرع وحل احتياطي
+        window.onload = function() {
+            const hijriSpan = document.getElementById('hijri-date');
+
+            // استخدام بروكسي بديل أكثر استقراراً
+            const targetUrl = 'https://www.sistani.org';
+            const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
+
+            fetch(proxyUrl)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.text();
+                })
+                .then(htmlContent => {
+                    // نفس الـ Regex الخاص بك تماماً لاستخراج التاريخ
+                    const regex = /style="margin-left:9px;">([^<]+)<\/span>/;
+                    const match = htmlContent.match(regex);
+
+                    if (match && match[1]) {
+                        const sistaniHijri = match[1].trim();
+                        hijriSpan.innerHTML = `🕌 الهجري (مكتب السيد السيستاني): <span class="text-teal-400 font-bold">${sistaniHijri}</span>`;
+                    } else {
+                        useFallbackHijri(hijriSpan);
+                    }
+                })
+                .catch(error => {
+                    console.warn("تعذر الجلب المباشر، الانتقال للتقويم الاحتياطي:", error);
+                    useFallbackHijri(hijriSpan);
+                });
+        };
+
+        // دالة احتياطية تعرض التقويم الفلكي الموثوق في حال تعذر الاتصال بالموقع
+        function useFallbackHijri(element) {
+            const today = new Date();
+            const hijriFallback = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            }).format(today);
+            element.innerHTML = `🕌 الهجري: <span class="text-teal-400 font-bold">${hijriFallback}</span>`;
+        }
+    </script>
+</body>
+
+</html>
